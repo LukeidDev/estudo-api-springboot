@@ -55,6 +55,7 @@ public class CelularController {
         Celular celular = celularRepository.findById(idcelul).get();
         return new ResponseEntity<Celular>(celular, HttpStatus.OK);
     }
+
     @PutMapping(value = "atualizar")
     @ResponseBody
     public ResponseEntity<?> atualizar(@RequestBody Celular celular){
@@ -67,5 +68,16 @@ public class CelularController {
         Celular celul = celularRepository.saveAndFlush(celular);
         return new ResponseEntity<Celular>(celul, HttpStatus.OK);
     }
+
+
+    @GetMapping(value = "buscarPorModelo")
+    @ResponseBody
+    public ResponseEntity<List<Celular>> buscarPorModelo(@RequestParam(name = "modelo") String modelo){
+
+        List<Celular> celular = celularRepository.buscarPorModelo(modelo.trim().toUpperCase());
+
+        return new ResponseEntity<List<Celular>>(celular, HttpStatus.OK);
+    }
+
 
 }
