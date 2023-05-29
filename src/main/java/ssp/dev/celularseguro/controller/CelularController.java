@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,6 +27,14 @@ public class CelularController {
         List<Celular> celulares = celularRepository.findAll();
 
         return new ResponseEntity<List<Celular>>(celulares, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "salvar")
+    @ResponseBody
+    public ResponseEntity<Celular> salvar(@RequestBody Celular celular){
+
+        Celular celul = celularRepository.save(celular);
+        return new ResponseEntity<Celular>(celul, HttpStatus.CREATED);
     }
 
 }
